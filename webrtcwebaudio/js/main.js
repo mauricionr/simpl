@@ -1,3 +1,19 @@
+/*
+Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 'use strict';
 
 /* globals webkitRTCPeerConnection */
@@ -5,8 +21,6 @@
 // The code for this example was adapted from a demo by Henrik Andreasson.
 // tweaks incorporated from rtoy
 
-var aud;
-var context = 0;
 var drumSoundBuffer = 0;
 var mediaStreamDestination = 0;
 var pc1;
@@ -14,6 +28,7 @@ var pc2;
 var voiceSound;
 var voiceSoundBuffer = 0;
 
+var audioElement = document.getElementById('audio');
 var callButton = document.getElementById('call');
 var hangupButton = document.getElementById('hangup');
 var drumButton = document.getElementById('drum');
@@ -43,10 +58,10 @@ function call() {
   trace('Starting call');
 
   var servers = null;
-  pc1 = new webkitRTCPeerConnection(servers);
+  pc1 = new webkitRTCPeerConnection(servers); // eslint-disable-line new-cap
   trace('Created local peer connection object pc1');
   pc1.onicecandidate = iceCallback1;
-  pc2 = new webkitRTCPeerConnection(servers);
+  pc2 = new webkitRTCPeerConnection(servers); // eslint-disable-line new-cap
   trace('Created remote peer connection object pc2');
   pc2.onicecandidate = iceCallback2;
   pc2.onaddstream = gotRemoteStream;
@@ -105,14 +120,15 @@ function hangup() {
 }
 
 function gotRemoteStream(e) {
-  aud.src = URL.createObjectURL(e.stream);
-  aud.addEventListener('pause', function() {
+  audioElement.src = URL.createObjectURL(e.stream);
+  audioElement.addEventListener('pause', function() {
     voiceSound.stop(0);
     pauseTime += context.currentTime - voiceSound.lastStartTime;
   });
-  aud.addEventListener('play', function() {
+  audioElement.addEventListener('play', function() {
     console.log('play');
-    voiceSound = context.createBufferSource(); // creates an AudioBufferSourceNode.
+    // creates an AudioBufferSourceNode.
+    voiceSound = context.createBufferSource();
     voiceSound.buffer = voiceSoundBuffer;
     voiceSound.connect(mediaStreamDestination);
     voiceSound.start(context.currentTime, pauseTime);
@@ -136,7 +152,8 @@ function iceCallback2(event) {
 }
 
 function drum() {
-  var drumSound = context.createBufferSource(); // creates an AudioBufferSourceNode.
+  // creates an AudioBufferSourceNode.
+  var drumSound = context.createBufferSource();
   drumSound.buffer = drumSoundBuffer;
   if (mediaStreamDestination) {
     drumSound.connect(mediaStreamDestination);
@@ -158,7 +175,8 @@ function loadAudioBuffer(url) {
   request.responseType = 'arraybuffer';
 
   request.onload = function() {
-    // source = context.createBufferSource();  // creates an AudioBufferSourceNode.
+    // source = context.createBufferSource();
+    // creates an AudioBufferSourceNode.
     context.decodeAudioData(request.response,
       function(decodedAudio) {
         voiceSoundBuffer = decodedAudio;

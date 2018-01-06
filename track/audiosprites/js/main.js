@@ -1,3 +1,19 @@
+/*
+Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 'use strict';
 
 /* globals $ */
@@ -5,7 +21,6 @@
 // This demo is based on code at http://dev.w3.org/html5/spec/media-elements.html#text-track-api
 
 $(document).ready(function() {
-
   window.VTTCue = window.VTTCue || window.TextTrackCue;
 
   var audio = new Audio('audio/animalSounds.mp3');
@@ -77,7 +92,7 @@ $(document).ready(function() {
         cue.id = sound.id;
         window.track.addCue(cue);
         $('#soundButtons').append(
-          '<button class="playSound" id=" + sound.id + ">' + sound.id +
+          '<button class="playSound" id="' + sound.id + '">' + sound.id +
           '</button>');
       }
 
@@ -89,23 +104,20 @@ $(document).ready(function() {
       });
 
       function playSound(id) {
-        var cue = window.track.getCueById(id);
-        audio.currentTime = cue.startTime;
-        endTime = cue.endTime;
+        var thisCue = window.track.getCueById(id);
+        audio.currentTime = thisCue.startTime;
+        endTime = thisCue.endTime;
         audio.play();
       }
 
       $('button.playSound').click(function() {
         playSound(this.id);
       });
-
     });
 
     // if track element not supported
   } else {
     $('.isSupported').addClass('hidden');
     $('.isNotSupported').addClass('visible');
-
   }
-
 });

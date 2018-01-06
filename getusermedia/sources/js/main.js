@@ -1,3 +1,19 @@
+/*
+Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 'use strict';
 
 var videoElement = document.querySelector('video');
@@ -11,12 +27,12 @@ function gotSources(sourceInfos) {
   for (var i = 0; i !== sourceInfos.length; ++i) {
     var sourceInfo = sourceInfos[i];
     var option = document.createElement('option');
-    option.value = sourceInfo.id;
-    if (sourceInfo.kind === 'audio') {
+    option.value = sourceInfo.deviceId;
+    if (sourceInfo.kind === 'audiooutput') {
       option.text = sourceInfo.label || 'microphone ' +
         (audioSelect.length + 1);
       audioSelect.appendChild(option);
-    } else if (sourceInfo.kind === 'video') {
+    } else if (sourceInfo.kind === 'videoinput') {
       option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
       videoSelect.appendChild(option);
     } else {
@@ -27,9 +43,11 @@ function gotSources(sourceInfos) {
 
 if (typeof MediaStreamTrack === 'undefined' ||
     typeof MediaStreamTrack.getSources === 'undefined') {
-  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+  alert('This browser does not support MediaStreamTrack.getSources().');
 } else {
-  MediaStreamTrack.getSources(gotSources);
+  navigator.mediaDevices.enumerateDevices().then(function(e) {
+    gotSources(e);
+  });
 }
 
 function successCallback(stream) {
@@ -43,12 +61,15 @@ function errorCallback(error) {
 }
 
 function start() {
-  if (!!window.stream) {
+  if (window.stream) {
     videoElement.src = null;
-    window.stream.stop();
+    window.stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
   }
   var audioSource = audioSelect.value;
   var videoSource = videoSelect.value;
+
   var constraints = {
     audio: {
       optional: [{

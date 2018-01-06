@@ -1,60 +1,67 @@
 <!DOCTYPE html>
-<html>
+
+<!--
+Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html lang="en">
 <head>
 
-<meta name="description" content="Simplest possible examples of HTML, CSS and JavaScript." />
-<meta name="author" content="//samdutton.com">
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-<meta itemprop="name" content="simpl.info: simplest possible examples of HTML, CSS and JavaScript">
-<meta itemprop="image" content="/icon_192x192.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta id="theme-color" name="theme-color" content="#fff">
+  <meta name="description" content="Simplest possible examples of HTML, CSS and JavaScript." />
+  <meta name="author" content="//samdutton.com">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta itemprop="name" content="simpl.info: simplest possible examples of HTML, CSS and JavaScript">
+  <meta itemprop="image" content="/images/icons/icon192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta id="theme-color" name="theme-color" content="#fff">
 
-<base target="_blank">
+  <base target="_blank">
 
-<title>MediaStream Recording</title>
+  <title>MediaStream Recording</title>
 
-<link rel="stylesheet" href="../css/main.css" />
-
-<style>
-a#downloadLink {
-  display: block;
-  margin: 0 0 1em 0;
-  min-height: 1.2em;
-}
-p#data {
-  min-height: 6em;
-}
-</style>
+  <link rel="canonical" href="https://simpl.info/mediarecorder" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="css/main.css" />
 
 </head>
 
 <body>
 
-<div id="container">
+  <div id="container">
 
-  <h1><a href="../index.html" title="simpl.info home page">simpl.info</a> MediaStream Recording</h1>
+    <h1><a href="../index.html" title="simpl.info home page">simpl.info</a> MediaStream&nbsp;Recording</h1>
 
-  <p>This demo requires <a href="http://nightly.mozilla.org/" title="Download Firefox Nightly">Firefox Nightly</a>. It's based on <a href="https://github.com/PinZhang/sample-codes/blob/master/html5/media_recording.html" title="GitHub repository for Media Recording example">PinZhang's MediaRecorder example</a>.</p>
+    <p>This demo requires Firefox 29 or later, or Chrome 47 or later with <strong>Enable experimental Web Platform features</strong> enabled from chrome://flags.</p>
 
-  <p>How does it work? A <code>MediaRecorder</code> is created which takes a video stream from <code>navigator.getUserMedia()</code>. When a blob of recorded data becomes available (set to occur after two seconds) this is used to set the <code>src</code> of the video element, using <code>window.URL.createObjectURL()</code>.</p>
+    <p>For more information see the MediaStream Recording API <a href="http://w3c.github.io/mediacapture-record/MediaRecorder.html" title="W3C MediaStream Recording API Editor's Draft">Editor's&nbsp;Draft</a>.</p>
 
-  <p>For more information see the MediaStream Recording API <a href="https://dvcs.w3.org/hg/dap/raw-file/default/media-stream-capture/MediaRecorder.html" title="W3C MediaStream Recording API Editor's Draft">Editor's Draft</a>.</p>
+    <video id="gum" autoplay muted></video>
+    <video id="recorded" autoplay loop></video>
 
-  <video controls autoplay></video>
+    <div>
+      <button id="record">Start Recording</button>
+      <button id="play" disabled>Play</button>
+      <button id="download" disabled>Download</button>
+    </div>
 
-  <a id="downloadLink" download="mediarecorder.ogv" name="mediarecorder.ogv" href></a>
+    <a href="https://github.com/samdutton/simpl/blob/gh-pages/mediarecorder" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 
-  <p id="data"></p>
+  </div>
 
   <script src="js/main.js"></script>
-
-
-  <a href="//github.com/samdutton/simpl/blob/master/mediarecorder/index.html" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
-
-</div>
-
-<script src="../js/lib/ga.js"></script>
+  <script src="../js/lib/ga.js"></script>
 
 </body>
 </html>

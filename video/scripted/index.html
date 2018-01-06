@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html>
+
+<!--
+Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html lang="en">
 <head>
 
 <meta name="description" content="Simplest possible examples of HTML, CSS and JavaScript." />
 <meta name="author" content="//samdutton.com">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 <meta itemprop="name" content="simpl.info: simplest possible examples of HTML, CSS and JavaScript">
-<meta itemprop="image" content="/icon_192x192.png">
+<meta itemprop="image" content="/images/icons/icon192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta id="theme-color" name="theme-color" content="#fff">
 
 <base target="_blank">
 
-<title>The video element: scripted playback</title>
+<title>Scripted muted video playback</title>
 
 <link rel="stylesheet" href="../../css/main.css" />
 <style>
@@ -27,25 +44,21 @@ video {
 
 <div id="container">
 
-  <h1><a href="../index.html" title="simpl.info home page">simpl.info</a> video with scripted playback</h1>
+  <h1><a href="../index.html" title="simpl.info home page">simpl.info</a> Muted video with scripted playback</h1>
 
-  <video controls>
+  <video muted controls>
     <source src="../video/chrome.mp4" type="video/mp4" />
     <source src="../video/chrome.webm" type="video/webm" />
     <p>This browser does not support the video element.</p>
   </video>
 
-  <button>Play</button>
-
-  <p>Playback of this video is initiated by the <code>play()</code> method, not the autoplay attribute.</p>
-
-  <p>Playback can also be initiated by pressing the Play button.</p>
+  <p>Playback of this video is initiated by the the <code>play()</code> method.</p>
 
   <p id="videoSrc"></p>
 
   <script src="js/main.js"></script>
 
-  <a href="//github.com/samdutton/simpl/blob/master/video/scripted.html" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
+  <a href="https://github.com/samdutton/simpl/blob/gh-pages/video/scripted" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 
 </div>
 <script src="../../js/lib/ga.js"></script>
